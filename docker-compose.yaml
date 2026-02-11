@@ -4,11 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: portofolio-app
+    
     restart: always
     ports:
-      - "3001:3001"
-    environment:
-      - NODE_ENV=production
-      - PORT=3001
-
- 
+      - "81:81"
+    
