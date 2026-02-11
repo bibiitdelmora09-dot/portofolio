@@ -1,9 +1,7 @@
-FROM oven/bun:1 AS app
-WORKDIR /app
-RUN bun install --no-cache --registry=https://registry.npmjs.org
+FROM nginx:alpine
 
-COPY . .
+COPY index.html /usr/share/nginx/html/
+COPY bibit.jpeg /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN bun run build
-
-CMD ["bun", "start"]
+EXPOSE 80

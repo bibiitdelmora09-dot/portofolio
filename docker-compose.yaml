@@ -1,11 +1,19 @@
+version: '3.8'
+
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: portofolio-app
-    
+  nginx:
+    image: nginx:alpine
+    container_name: porto-nginx
     restart: always
     ports:
-      - "81:81"
-    
+      - "80:80"                 # ← Dalang.io akan proxy ke port ini di host/server kamu
+      # JANGAN expose 443 lagi, karena HTTPS ditangani dalang.io
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro     # config tanpa SSL
+      - ./dist:/usr/share/nginx/html:ro           # folder hasil build SPA kamu
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: true
